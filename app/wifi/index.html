@@ -1,0 +1,291 @@
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<title>Omsintheair</title>
+	<link rel="stylesheet" href="../assets/leaflet.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/style.css">
+</head>
+
+<body>
+	<!-- 
+	<div class="disconnected alcentre" id="p_av">
+		<div class="aintcon">Not connected</div>
+	</div>
+	 -->
+	<div class="menu alcentre" id="menu_id">
+		<div class="content_menu">
+			<div class="t_cs alcentre"><i>OmsInTheAir</i></div>
+        <div class="alcentre bb_cba">
+            <div class="cba alcentre">
+                <div class="b_cba">
+                    <div class="t_cba alcentre">Batt</div>
+                    <div class="i_cba alcentre">82%</div>
+                </div>
+            </div>
+            <div class="cba alcentre">
+                <div class="b_cba">
+                    <div class="t_cba alcentre">Batt (W)</div>
+                    <div class="i_cba alcentre">1215W</div>
+                </div>
+            </div>
+            <div class="cba alcentre">
+                <div class="b_cba">
+                    <div class="t_cba alcentre">Consumption</div>
+                    <div class="i_cba alcentre">50 W/h</div>
+                </div>
+            </div>
+            <div class="cba alcentre">
+                <div class="b_cba">
+                    <div class="t_cba alcentre">Charging</div>
+                    <div class="i_cba alcentre">200 W/h</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alcentre bb_cba">
+            <div class="cba alcentre">
+                <div class="b_cba">
+                    <div class="t_cba alcentre">Latitude</div>
+                    <div class="i_cba alcentre">41.716379º</div>
+                </div>
+            </div>
+            <div class="cba alcentre">
+                <div class="b_cba">
+                    <div class="t_cba alcentre">Longitude</div>
+                    <div class="i_cba alcentre">1.8220914º</div>
+                </div>
+            </div>
+            <div class="cba alcentre">
+                <div class="b_cba">
+                    <div class="t_cba alcentre">Altitud</div>
+                    <div class="i_cba alcentre">320m</div>
+                </div>
+            </div>
+            <div class="cba alcentre">
+                <div class="b_cba">
+                    <div class="t_cba alcentre">Sattelites</div>
+                    <div class="i_cba alcentre">5</div>
+                </div>
+            </div>
+		</div>
+
+        <div class="alcentre bb_cba">
+            <div class="cba alcentre">
+                <div class="b_cba">
+                    <div class="t_cba alcentre">Pressure</div>
+                    <div class="i_cba alcentre">9.984 HPa</div>
+                </div>
+            </div>
+            <div class="cba alcentre">
+                <div class="b_cba">
+                    <div class="t_cba alcentre">Temperature</div>
+                    <div class="i_cba alcentre">20º C</div>
+                </div>
+            </div>
+            <div class="cba alcentre">
+                <div class="b_cba">
+                    <div class="t_cba alcentre">Humidity</div>
+                    <div class="i_cba alcentre">35%</div>
+                </div>
+            </div>
+            <div class="cba alcentre">
+                <div class="b_cba">
+                    <div class="t_cba alcentre">Communication</div>
+                    <div class="i_cba alcentre">WiFi</div>
+                </div>
+            </div>
+        </div>
+		</div>
+		<div class="tabs_menu">
+			<div class="tab alcentre active" id="tab_p_1" onclick="open_tab(1)"><i class="glyphicon glyphicon-map-marker"></i>
+			</div>
+			<div class="tab alcentre" id="tab_p_2" onclick="open_tab(2)"><i class="glyphicon glyphicon-scale"></i></div>
+			<div class="tab alcentre" id="tab_p_3" onclick="open_tab(3)"><i class="glyphicon glyphicon-facetime-video"></i></div>
+			<div class="tab alcentre" id="tab_p_4" onclick="open_tab(4)"><i class="glyphicon glyphicon-cog"></i></div>
+			<div class="tab_o alcentre" onclick="menu_move()"><i class="glyphicon glyphicon-th"></i></div>
+		</div>
+	</div>
+
+	<div class="content" onclick="menu_close()">
+		<!-- LEAFLEET -->
+		<div class="screen" id="tab_1">
+			<div class="screen" id="map_id" style="position: fixed; transition: 0.5s;"></div>
+			<div class="new_route alcentre" onclick="new_route()">New Route</div>
+			<div class="route_des" id="route_des">
+				<div id="design_r" style="transition: 0.5s">
+					<div class="top_r alcentre">
+						<div class="title alcentre">ROUTE</div>
+						<div class="close_route alcentre" onclick="new_route()"><i class="glyphicon glyphicon-remove"></i></div>
+					</div>
+					<div class="locations" id="locations">
+					</div>
+					<div class="d_t alcentre"><b>Distance:&nbsp</b><div id="d_p_t">0m</div></div>
+					<div class="submit_route alcentre" id="submit_route" onclick="submit_route()">SUBMIT</div>
+				</div>
+				<div class="finit_r" id="finit_r" style="display: none;">
+					<div class="r_t alcentre">Route review</div>
+					<div class="r_ct">
+						<div style="height: 20px;"></div>
+						<div class="alcentre state_r">Ready</div>
+						<div style="height: 50px;"></div>
+						<div class="alcentre">
+							<input type="text" placeholder="Max altitud" class="bonito">
+							<input type="text" placeholder="Max speed" class="bonito">
+							<input type="text" placeholder="Min pass" class="bonito">
+						</div>
+						<div style="height: 50px;"></div>
+						<div class="alcentre" style="width: 100%; height: 20%;">
+							<div class="rr_b">
+								<div class="text_rr_bs alcentre">Battery</div>
+								<div class="d_rr_bs alcentre">1250W</div>
+							</div>
+							<div class="rr_b">
+								<div class="text_rr_bs alcentre">Battery use</div>
+								<div class="d_rr_bs alcentre">950W</div>
+							</div>
+							<div class="rr_b">
+								<div class="text_rr_bs alcentre">Distance</div>
+								<div class="d_rr_bs alcentre">54000m</div>
+							</div>
+						</div>
+						<div class="text_plane">
+							Lorem ipsum allahuakbar dolor sit amet consectetur adipisicing elit. Expedita excepturi consequuntur modi possimus minima distinctio illum exercitationem numquam eius aperiam in unde voluptates non illo obcaecati, asperiores dolorum dolores atque!
+						</div>
+					</div>
+					<div class="b_ct alcentre">
+						<div class="butt_rc alcentre" onclick="test()">Cancel</div>
+						<div class="butt_rt alcentre" onclick="test()">Test</div>
+						<div class="butt_rf alcentre" onclick="start_fly()">Fly</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- RADIOCONTROL -->
+		<div class="screen" id="tab_2" style="display: none">
+			<div class="alcentre" style="width: 100%; height: 100%;">
+				<div class="ctrl_cont">
+					<div class="cont_ctrl">
+						<div class="alcentre" style="height: 15%;">
+							<div class="rva alcentre">
+								<div>
+									<div class="t_rva">RPM</div>
+									<div class="i_rva">3208</div>
+								</div>
+							</div>
+							<div class="rva alcentre">
+								<div>
+									<div class="t_rva">Speed</div>
+									<div class="i_rva">3208</div>
+								</div>
+							</div>
+							<div class="rva alcentre">
+								<div>
+									<div class="t_rva">Degree</div>
+									<div class="i_rva">3208</div>
+								</div>
+							</div>
+						</div>
+						<div class="alcentre" style="height: 15%;">
+							<div class="rva alcentre">
+								<div>
+									<div class="t_rva">W Servo</div>
+									<div class="i_rva">3208</div>
+								</div>
+							</div>
+							<div class="rva alcentre">
+								<div>
+									<div class="t_rva">E Servo</div>
+									<div class="i_rva">3208</div>
+								</div>
+							</div>
+							<div class="rva alcentre">
+								<div>
+									<div class="t_rva">S servo</div>
+									<div class="i_rva">3208</div>
+								</div>
+							</div>
+							<div class="rva alcentre">
+								<div>
+									<div class="t_rva">P Servo</div>
+									<div class="i_rva">3208</div>
+								</div>
+							</div>
+						</div>
+						<div class="alcentre" style="height: 15%;">
+							<div class="rva alcentre">
+								<div>
+									<div class="t_rva">Light</div>
+									<div class="alcentre" style="width: 100%;">
+										<label class="switch">
+											<input type="checkbox" class="chbo">
+											<span class="slider round"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="rva alcentre">
+								<div>
+									<div class="t_rva">Compartment</div>
+									<div class="alcentre" style="width: 100%;">
+										<label class="switch">
+											<input type="checkbox" class="chbo">
+											<span class="slider round"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="rva alcentre">
+									<div class="but_rva_r alcentre">Put to start</div>
+							</div>
+						</div>
+						<div style="height: 5%;"></div>
+						<div class="webgl"></div>
+					</div>
+					<div class="direction alcentre" id="direction">
+						<div class="actual_direction" id="actual_direction"></div>
+					</div>
+				</div>
+				<div class="speed">
+					<div class="actual_speed" id="actual_speed"></div>
+				</div>
+			</div>
+		</div>
+		<!-- VIDEOOO -->
+		<div class="screen" id="tab_3" style="display: none">
+			<div class="alcentre" style="width: 100%; height: 90%; background: rgb(60, 60, 72);">
+				<img src="../assets/logo.png" class="video" id="video_id">
+			</div>
+
+			<div class="video_controls alcentre">
+				<div class="video_play alcentre" onclick="pp_video()" id="video_play">
+					<i class="glyphicon glyphicon-play"></i>
+				</div>
+
+				<div class="video_degree">
+					<input type="range" id="range_degree" class="range_video" min="0" max="180" value="0" oninput="range_video()" onchange="deg_video()">
+					<div style="text-align: center; font-size: 25px; margin-top: 5px; font-weight: bold;" id="range_value">0º</div>
+				</div>
+
+				<div class="video_flash alcentre" onclick="f_video()" id="video_flash">
+					<i class="glyphicon glyphicon-flash"></i>
+				</div>
+			</div>
+		</div>
+		<!-- CONFIGURATIOON -->
+		<div class="screen" id="tab_4" style="display: none">
+
+		</div>
+	</div>
+</body>
+<script src="../assets/socket.io.js"></script>
+<script src="../assets/leaflet.js"></script>
+<script src="../assets/jquery.js"></script>
+<script src="main.js"></script>
+
+</html>
