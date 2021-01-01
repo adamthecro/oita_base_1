@@ -2,7 +2,7 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 var fs = require('fs');
-	
+
 let mainWindow
 
 const express = require("express");
@@ -25,8 +25,8 @@ var plane_file_log = "";
 
 function createWindow() {
 	mainWindow = new BrowserWindow({
-		width: 700,
-		height: 400,
+		width: 1080,
+		height: 720,
 		frame: false,
 		webPreferences: {
 			webviewTag: true,
@@ -40,7 +40,7 @@ function createWindow() {
 	})
 }
 
-app.on('ready', function(){
+app.on('ready', function () {
 
 	createWindow();
 
@@ -55,9 +55,9 @@ app.on('ready', function(){
 	io.on("connection", function (socket) {
 		console.log(socket);
 		new_connection(socket);
-		socket.on("want", function(data){client_demand(data,socket)});
-		socket.on("sending", function(data){plane_demand(data,socket)});
-		socket.on("disconnect", function(){disconnect(socket)});
+		socket.on("want", function (data) { client_demand(data, socket) });
+		socket.on("sending", function (data) { plane_demand(data, socket) });
+		socket.on("disconnect", function () { disconnect(socket) });
 	});
 
 })
@@ -71,7 +71,7 @@ app.on('activate', function () {
 })
 
 //SOCKET FUNCTIONS
-function new_connection(socket){
+function new_connection(socket) {
 	var type_device = "Computer";
 	console.log(socket["id"]);
 	console.log(socket.handshake.headers['user-agent'])
@@ -81,37 +81,37 @@ function new_connection(socket){
 		type_device = "Plane";
 		mainWindow.loadFile('app/wifi/index.html')
 		mainWindow.maximize();
-		
+
 	} else {
 		device.push(socket.id);
 	}
 	console.log("Connected " + type_device + ": " + socket.id)
 	if (device != null && plane != null) {
-		io.emit("devices", {"plane": plane});
+		io.emit("devices", { "plane": plane });
 	}
 }
 
-function client_demand(data, socket){
+function client_demand(data, socket) {
 	console.log(data);
-	if(data=="image"){
-		io.to(plane).emit("want", ["image",socket.id])
+	if (data == "image") {
+		io.to(plane).emit("want", ["image", socket.id])
 	}
 }
 
-function plane_demand(data, socket){
-	if(data[0]=="image"){
+function plane_demand(data, socket) {
+	if (data[0] == "image") {
 		socket.to(device[0]).emit("image", data[1]);
 	}
-	else if(data[0]=="data"){
+	else if (data[0] == "data") {
 		console.log(data[1]);
 	}
 }
 
-function disconnect(socket){
-	console.log("Disconnected: "+socket.id)
+function disconnect(socket) {
+	console.log("Disconnected: " + socket.id)
 	if (socket.id == plane) {
 		plane = "";
-		io.emit("devices", { "plane": false});
+		io.emit("devices", { "plane": false });
 		/*mainWindow.loadFile('app/index.html');
 		mainWindow.unmaximize();
 		mainWindow.setBounds({width:700, height:400});*/
@@ -124,8 +124,8 @@ function disconnect(socket){
 /* USB */
 sp.list().then(
 	ports => {
-		if(ports.length<2){
-			
+		if (ports.length < 2) {
+
 		}
 	},
 	err => {
@@ -137,13 +137,13 @@ const port = new sp('/dev/ttyUSB0', {
 	baudRate: 115200
 })
 
-port.on('error', function(err) {
-  console.log('Error: ', err.message)
+port.on('error', function (err) {
+	console.log('Error: ', err.message)
 })
 
 port.on('readable', function () {
 	console.log('Data:', port.read());
-	if(!cont){
+	if (!cont) {
 		mainWindow.loadFile('app/uart/index.html')
 		mainWindow.maximize();
 		cont = true;
