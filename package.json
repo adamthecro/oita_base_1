@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "serialport": "^9.0.0",
+    "jquery.terminal": "^2.20.1",
     "socket.io": "^2.3.0"
   }
 }

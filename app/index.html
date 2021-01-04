@@ -1,44 +1,351 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css">
-	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-    <title>Initializing...</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <title>Omsintheair</title>
+    <link rel="stylesheet" href="assets/leaflet.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="assets/socket.io.js"></script>
+    <script src="assets/leaflet.js"></script>
+    <script src="assets/stl_render/stl_viewer.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css" />
 </head>
+
 <body>
-    <div class="bc_r1"></div>
-    <div class="bc_r"></div>
-    <div class="bc_r2"></div>
-    <div class="box alcentre">
-        <div>
-            <div class="title">Searching for plane</div>
-            <div class="description" id="desc">.</div>
+    <!-- MENU -->
+    <div class="menu alcentre" id="menu_id">
+        <div class="content_menu">
+            <div class="t_cs alcentre">OmsInTheAir</div>
+            <div class="alcentre bb_cba">
+                <div class="cba alcentre">
+                    <div class="b_cba">
+                        <div class="t_cba alcentre">Batt</div>
+                        <div class="i_cba alcentre">82%</div>
+                    </div>
+                </div>
+                <div class="cba alcentre">
+                    <div class="b_cba">
+                        <div class="t_cba alcentre">Batt (W)</div>
+                        <div class="i_cba alcentre">1215W</div>
+                    </div>
+                </div>
+                <div class="cba alcentre">
+                    <div class="b_cba">
+                        <div class="t_cba alcentre">Consumption</div>
+                        <div class="i_cba alcentre">50 W/h</div>
+                    </div>
+                </div>
+                <div class="cba alcentre">
+                    <div class="b_cba">
+                        <div class="t_cba alcentre">Velocity</div>
+                        <div class="i_cba alcentre">0.1m/s</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alcentre bb_cba">
+                <div class="cba alcentre">
+                    <div class="b_cba">
+                        <div class="t_cba alcentre">Latitude</div>
+                        <div class="i_cba alcentre">41.716379º</div>
+                    </div>
+                </div>
+                <div class="cba alcentre">
+                    <div class="b_cba">
+                        <div class="t_cba alcentre">Longitude</div>
+                        <div class="i_cba alcentre">1.8220914º</div>
+                    </div>
+                </div>
+                <div class="cba alcentre">
+                    <div class="b_cba">
+                        <div class="t_cba alcentre">Altitud</div>
+                        <div class="i_cba alcentre">320m</div>
+                    </div>
+                </div>
+                <div class="cba alcentre">
+                    <div class="b_cba">
+                        <div class="t_cba alcentre">Sattelites</div>
+                        <div class="i_cba alcentre">5</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alcentre bb_cba">
+                <div class="cba alcentre">
+                    <div class="b_cba">
+                        <div class="t_cba alcentre">Pressure</div>
+                        <div class="i_cba alcentre">9.984 HPa</div>
+                    </div>
+                </div>
+                <div class="cba alcentre">
+                    <div class="b_cba">
+                        <div class="t_cba alcentre">Temperature</div>
+                        <div class="i_cba alcentre">20º C</div>
+                    </div>
+                </div>
+                <div class="cba alcentre">
+                    <div class="b_cba">
+                        <div class="t_cba alcentre">Humidity</div>
+                        <div class="i_cba alcentre">35%</div>
+                    </div>
+                </div>
+                <div class="cba alcentre">
+                    <div class="b_cba">
+                        <div class="t_cba alcentre">Signal Strength</div>
+                        <div class="i_cba alcentre">-30db</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tabs_menu">
+            <div class="tab alcentre active" id="tab_p_1" onclick="open_tab(1)"><i
+                    class="glyphicon glyphicon-map-marker"></i>
+            </div>
+            <div class="tab alcentre" id="tab_p_2" onclick="open_tab(2)"><i class="glyphicon glyphicon-scale"></i></div>
+            <div class="tab alcentre" id="tab_p_3" onclick="open_tab(3)"><i
+                    class="glyphicon glyphicon-facetime-video"></i>
+            </div>
+            <div class="tab alcentre" id="tab_p_4" onclick="open_tab(4)"><i class="glyphicon glyphicon-cog"></i></div>
+            <div class="tab_o alcentre" onclick="menu_move()"><i class="glyphicon glyphicon-th"></i></div>
+        </div>
+    </div>
+
+    <div class="content" onclick="menu_close()">
+        <!-- LEAFLEET -->
+        <div class="screen" id="tab_1">
+            <div class="screen" id="map_id" style="position: fixed; transition: 0.5s;"></div>
+            <div class="new_route alcentre" onclick="new_route()">New Route</div>
+            <div class="route_des" id="route_des">
+                <div id="design_r" style="transition: 0.5s">
+                    <div class="top_r alcentre">
+                        <div class="title alcentre">Route</div>
+                        <div class="close_route alcentre" onclick="new_route()"><i
+                                class="glyphicon glyphicon-remove"></i></div>
+                    </div>
+                    <div class="locations" id="locations">
+                    </div>
+                    <div class="d_t alcentre"><b>Distance:&nbsp</b>
+                        <div id="d_p_t">0m</div>
+                    </div>
+                    <div class="submit_route alcentre" id="submit_route" onclick="submit_route()">Submit</div>
+                </div>
+                <div class="finit_r" id="finit_r" style="display: none;">
+                    <div class="r_t alcentre">Route review</div>
+                    <div class="r_ct">
+                        <div style="height: 20px;"></div>
+                        <div class="alcentre state_r">Ready</div>
+                        <div style="height: 50px;"></div>
+                        <div class="alcentre">
+                            <input type="text" placeholder="Max altitud" class="bonito">
+                            <input type="text" placeholder="Max speed" class="bonito">
+                            <input type="text" placeholder="Min pass" class="bonito">
+                        </div>
+                        <div style="height: 50px;"></div>
+                        <div class="alcentre" style="width: 100%; height: 20%;">
+                            <div class="rr_b">
+                                <div class="text_rr_bs alcentre">Battery</div>
+                                <div class="d_rr_bs alcentre">1250W</div>
+                            </div>
+                            <div class="rr_b">
+                                <div class="text_rr_bs alcentre">Battery use</div>
+                                <div class="d_rr_bs alcentre">950W</div>
+                            </div>
+                            <div class="rr_b">
+                                <div class="text_rr_bs alcentre">Distance</div>
+                                <div class="d_rr_bs alcentre">54000m</div>
+                            </div>
+                        </div>
+                        <div class="text_plane">
+                            Lorem ipsum allahuakbar dolor sit amet consectetur adipisicing elit. Expedita excepturi
+                            consequuntur modi possimus minima distinctio illum exercitationem numquam eius aperiam in
+                            unde voluptates non illo obcaecati, asperiores dolorum dolores atque!
+                        </div>
+                    </div>
+                    <div class="b_ct alcentre">
+                        <div class="butt_rc alcentre" onclick="cancel_route()">Cancel</div>
+                        <div class="butt_rt alcentre" onclick="test()">Test</div>
+                        <div class="butt_rf alcentre" onclick="start_fly()">Fly</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RADIOCONTROL -->
+        <div class="screen" id="tab_2">
+            <div style="display: flex;">
+                <div class="motorpow">
+                    <div class="motorpowbar" id="leftmotor"></div>
+                </div>
+                <div style="height: 100%; width: 98%">
+                    <div class="topbar"></div>
+                    <div class="header alcentre">
+                        <input type="text" class="commands" placeholder="Write command" id="input1">
+                        <div class="commbut alcentre" onclick="commbutf(0)">Ping data</div>
+                        <div class="commbut alcentre" onclick="commbutf(1)">Steady</div>
+                        <div class="commbut alcentre" onclick="commbutf(2)">Ready</div>
+                        <div class="commbut alcentre" onclick="commbutf(3)">Base Controll</div>
+                        <div class="commbutr alcentre" onclick="commbutf(99)">Reboot</div>
+                    </div>
+
+                    <div class="data alcentre">
+                        <div class="logs">
+                            <!-- GLOBAL -->
+                            <div class="alcentre"
+                                style="background-color: rgb(0, 0, 0); border: 1px solid rgb(26, 21, 49); border-radius:5px;">
+
+                                <div class="delokos">
+                                    <div class="alcentre nene">Pitch G</div>
+                                    <div id="pg" class="alcentre datos" style="border-bottom-left-radius: 5px; ">-</div>
+                                </div>
+                                <div class="delokos">
+                                    <div class="alcentre nene">Roll G</div>
+                                    <div id="rg" class="alcentre datos">-</div>
+                                </div>
+                                <div class="delokos">
+                                    <div class="alcentre nene">Yaw G</div>
+                                    <div id="yg" class="alcentre datos" style="border-bottom-right-radius: 5px; ">-
+                                    </div>
+                                </div>
+                            </div><!-- MPU1 -->
+                            <div class="alcentre"
+                                style="background-color: rgb(18, 45, 59); border: 1px solid rgb(26, 21, 49); border-radius:5px;margin-top: 1.75vh;">
+
+                                <div class="delokos">
+                                    <div class="alcentre nene">Pitch 1</div>
+                                    <div id="p1" class="alcentre datos" style="border-bottom-left-radius: 5px; ">-</div>
+                                </div>
+                                <div class="delokos">
+                                    <div class="alcentre nene">Roll 1</div>
+                                    <div id="r1" class="alcentre datos">-</div>
+                                </div>
+                                <div class="delokos">
+                                    <div class="alcentre nene">Yaw 1</div>
+                                    <div id="y1" class="alcentre datos" style="border-bottom-right-radius: 5px; ">-
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- MPU2 -->
+                            <div class="alcentre"
+                                style="background-color: rgb(19, 54, 27); border: 1px solid rgb(26, 21, 49); border-radius:5px;margin-top: 1.75vh;">
+
+                                <div class="delokos">
+                                    <div class="alcentre nene">Pitch 2</div>
+                                    <div id="p2" class="alcentre datos" style="border-bottom-left-radius: 5px; ">-</div>
+                                </div>
+                                <div class="delokos">
+                                    <div class="alcentre nene">Roll 2</div>
+                                    <div id="r2" class="alcentre datos">-</div>
+                                </div>
+                                <div class="delokos">
+                                    <div class="alcentre nene">Yaw 2</div>
+                                    <div id="y2" class="alcentre datos" style="border-bottom-right-radius: 5px; ">-
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- MPU3 -->
+                            <div class="alcentre"
+                                style="background-color: rgb(66, 28, 27); border: 1px solid rgb(26, 21, 49); border-radius:5px;margin-top: 1.75vh;">
+
+                                <div class="delokos">
+                                    <div class="alcentre nene">Pitch 3</div>
+                                    <div id="p3" class="alcentre datos" style="border-bottom-left-radius: 5px; ">-</div>
+                                </div>
+                                <div class="delokos">
+                                    <div class="alcentre nene">Roll 3</div>
+                                    <div id="r3" class="alcentre datos">-</div>
+                                </div>
+                                <div class="delokos">
+                                    <div class="alcentre nene">Yaw 3</div>
+                                    <div id="y3" class="alcentre datos" style="border-bottom-right-radius: 5px; ">-
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="map" id="map_id2"></div>
+                    </div>
+
+                    <div class="motors alcentre">
+                        <div class="motor alcentre">
+                            <div>
+                                <div class="percentatge" id="pm_l">
+                                    -
+                                </div>
+                                <div class="rpm">L</div>
+                            </div>
+                        </div>
+                        <div class="angle alcentre" id="m1servo">-</div>
+                        <div class="spacer" id="spacer">
+                            <div class="alcentre" style="font-size: 12px;">PI:&nbsp<a
+                                    id="pi">-</a>&nbsp&nbsp||&nbsp&nbspMode:&nbsp<a id="moderrimo">-</a>
+                            </div>
+                            <div id="stl_cont" style="width:100%;height:100%;" class="avionsito"></div>
+                        </div>
+                        <div class="angle alcentre" id="m2servo">-</div>
+                        <div class="motor alcentre">
+                            <div>
+                                <div class="percentatge" id="pm_r">
+                                    -
+                                </div>
+                                <div class="rpm">R</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="servos alcentre">
+                        <div class="servo">L-Wing <div class="rservo alcentre" id="s0">-</div>
+                        </div>
+                        <div class="servo">Package<div class="rservo alcentre" id="s2">-</div>
+                        </div>
+                        <div class="servo">V-Elevator<div class="rservo alcentre" id="s3">-</div>
+                        </div>
+                        <div class="servo">H-Elevator<div class="rservo alcentre" id="s4">-</div>
+                        </div>
+                        <div class="servo">R-Wing<div class="rservo alcentre" id="s1">-</div>
+                        </div>
+                    </div>
+                    <div class="motorpowh alcentre">
+                        <div class="motorpowbarh" id="waybar"></div>
+                    </div>
+                </div>
+                <div class="motorpow">
+                    <div class="motorpowbar" id="rightmotor"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIDEOO -->
+        <div class="screen" id="tab_3" style="display: none">
+            <div class="video_controls">
+                <div class="video_play alcentre" onclick="pp_video()" id="video_play">
+                    <i class="glyphicon glyphicon-play"></i>
+                </div>
+
+
+                <div class="video_flash alcentre" onclick="f_video()" id="video_flash">
+                    <i class="glyphicon glyphicon-flash"></i>
+                </div>
+            </div>
+            <div class="alcentre" style="width: 100%; height: 100%; background: rgb(60, 60, 72);">
+                <img src="assets/logo.png" class="video" id="video_id">
+            </div>
+
+        </div>
+
+        <!-- CONFIGURATIOON -->
+        <div class="screen" id="tab_4" style="display: none; background: #fff;width: 10;">
+            <div class="terminals" id="patata" style="
+    width: 98vw;
+    height: 100vh;">
+            </div>
         </div>
     </div>
 </body>
-<script>
-var puntos=1
-setInterval(function(){
-    var d = document.getElementById("desc");
-    if (puntos==7) {
-       puntos=1;
-       d.innerHTML=".";
-    } else if (puntos==1) {
-        d.innerHTML=".";
-    } else if (puntos==2) {
-        d.innerHTML="..";
-    } else if (puntos==3) {
-        d.innerHTML="...";
-    } else if (puntos==4) {
-        d.innerHTML="....";
-    } else if (puntos==5) {
-        d.innerHTML=".....";
-    } else if (puntos==6) {
-        d.innerHTML="......";
-    }
-    puntos++
-}, 250);
-</script>
+<script src="main.js"></script>
+
 </html>

@@ -60,7 +60,7 @@ body{
 }
 .screen{
     width: 100%;
-    height: 100vh;
+    height: 100%;
 }
 .active{
     background: #efefef;
@@ -91,45 +91,56 @@ body{
     margin: 0 0;
 }
 .video_controls{
+    position: absolute;
+    margin-top: 1vw;
+    margin-left: 92vw;
+    z-index: 1000;
     width: 100%;
     height: 10%;
 }
 .video_play{
-    width: 25%;
-    height: 100%;
-    font-size: 50px;
+background: rgb(220,220,220,0.4);
+    width: 8vh;
+    height: 8vh;
+    border-radius: 10px;
+    font-size: 30px;
     transition: 0.5s;
     cursor: pointer;
     color: #000;
 }
 .video_play:hover{
+background: rgba(92, 88, 88, 0.4);
     color: #777;
 }
 .video_degree{
     width: 50%;
 }
 .video_flash{
-    width: 25%;
-    height: 100%;
-    font-size: 50px;
+    margin-top: 1vw;
+background: rgb(220,220,220,0.4);
+    width: 8vh;
+    height: 8vh;
+    border-radius: 10px;
+    font-size: 30px;
     transition: 0.5s;
     cursor: pointer;
     color: #000;
     transition: 0.5s;;
 }
 .video_flash:hover{
-    color: #777;
+background: rgba(92, 88, 88, 0.4);
+    color: rgb(158, 158, 158);
 }
 .new_route{
-    width: 10%;
+    width: 8%;
     height: 50px;
     z-index: 1500;
     background: #fff;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 16px;
     position: fixed;
-    margin-left: calc(90% - 60px);
-    margin-top: 15px;
+    margin-left: calc(91% - 60px);
+    margin-top: 20px;
     box-shadow: 0 1px 5px rgba(0,0,0,.65);
     border-radius: 4px;
     transition: 0.5s;
@@ -141,7 +152,7 @@ body{
 }
 .route_des{
     position: absolute;
-    width: 25%;
+    width: 20%;
     height: 100vh;
     margin-left: 100%;
     box-shadow: 0px 0px 10px 1px #333;
@@ -151,29 +162,31 @@ body{
     cursor: default;
 }
 .title{
-    font-size: 25px;
-    width: 80%;
-    height: 7vh;
+    font-size: 20px;
+    width: 100%;
+    height: 4vh;
     font-weight: 700;
 }
 .close_route{
-    font-size: 20px;
-    color: #a7a7a7;
-    width: 20%;
+    font-size: 14px;
+    color: rgb(243, 52, 100);
+    width: 10%;
+    margin-left: 45%;
+    position: absolute;
     cursor: pointer;
 }
 .locations{
-    height: 82%;
+    height: 88%;
     width: 100%;
     overflow-y: auto;
 }
 .submit_route{
     width: 100%;
-    height: 8%;
+    height: 5%;
     font-weight: bold;
     color: #fff;
     font-size: 20px;
-    background: rgb(58, 236, 138);
+    background: rgb(24, 34, 56);
     transition:0.5s;
     cursor: not-allowed;
 
@@ -186,21 +199,22 @@ body{
 }
 .location{
     width: 100%;
-    height: 50px;
+    height: 45px;
 }
 .loc_r_n{
-    font-size: 20px;
-    background: #adadad;
+    font-size: 16px;
+    background: #c7c7c7;
     font-weight: bold;
     width: 10%;
     height: 100%;
     border-bottom: 1px solid #000;
 }
 .coord{
+    padding-top: 2.5px;
     padding-left: 10px;
     width: 80%;
     height: 100%;
-    font-size: 17px;
+    font-size: 14px;
     border-bottom: 1px solid #adadad;
 }
 .d_t{
@@ -222,56 +236,62 @@ body{
     font-size: 30px;
 }
 .r_ct{
-    height: 87%;
+    height: 89%;
     width: 100%;
 }
 .butt_rt{
     width: 50%;
     height: 100%;
-    font-size: 25px;
+    font-size: 20px;
     color: #fff;
     font-weight: bold;
-    background-color: rgb(243, 52, 100);
-    border-top: 1px solid rgb(243, 52, 100);
+    background-color: rgb(56, 82, 122);
+    border-top: 1px solid rgb(56, 82, 122);
+    border-left: 1px solid rgb(56, 82, 122);
+    border-right: 1px solid rgb(56, 82, 122);
     transition: 0.5s;
     cursor: pointer;
 }
 .butt_rt:hover{
     background-color: #fff;
-    color: rgb(243, 52, 100);
+    color: rgb(56, 82, 122);
 }
 .butt_rf{
     width: 50%;
     height: 100%;
-    font-size: 25px;
+    font-size: 20px;
     color: #fff;
     font-weight: bold;
-    background-color: rgb(69, 155, 235);
-    border-top: 1px solid rgb(69, 155, 235);
+    background-color: rgb(15, 15, 16);
+    border-top: 1px solid rgb(15, 15, 16);
+    border-left: 1px solid rgb(15, 15, 16);
+    border-right: 1px solid rgb(15, 15, 16);
     transition: 0.5s;
     cursor: pointer;
 }
 .butt_rf:hover{
     background-color: #fff;
-    color: rgb(69, 155, 235);
+    color: rgb(15, 15, 16);
 }
 .butt_rc{
     width: 50%;
     height: 100%;
-    font-size: 25px;
+    font-size: 20px;
     color: #fff;
     font-weight: bold;
-    background-color: rgb(210, 235, 69);
-    border-top: 1px solid rgb(210, 235, 69);
+    background-color: rgb(163, 64, 64);
+    border-top: 1px solid rgb(163, 64, 64);
+    border-right: 1px solid rgb(163, 64, 64);
+    border-left: 1px solid rgb(163, 64, 64);
     transition: 0.5s;
     cursor: pointer;
 }
 .butt_rc:hover{
     background-color: #fff;
-    color: rgb(210, 235, 69);
+    color: rgb(163, 64, 64);
 }
 .b_ct{
-    height: 8%;
+    height: 6%;
     width: 100%;
 }
 .state_r{
@@ -530,4 +550,258 @@ input:checked + .slider:before {
 .but_ref_c_l:hover{
     color: rgb(88, 63, 104);
     background: #ededed;
+}
+
+body {
+    font-family: "Montserrat";
+    margin: 0 0;
+    user-select: none;
+    background: #fff;
+    overflow: hidden;
+
+}
+
+.alcentre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    width: 100%;
+    height: 100vh;
+}
+
+.topbar {
+    height: 15px;
+    width: 100%;
+    -webkit-app-region: drag;
+    z-index: 2000;
+    background: rgb(25, 29, 58);
+    border-bottom-left-radius: 5px;
+
+}
+
+.header {
+    height: 6vh;
+}
+
+.commands {
+    width: 40%;
+    height: 3vh;
+    border-radius: 5px;
+    border: 1px solid #adadad;
+    margin: 0 calc(5% - 2px);
+    margin-right: calc(2.5% - 1px);
+    font-family: "Montserrat";
+    padding: 5px;
+    font-size: 12px;
+    outline: none;
+}
+
+.commbut {
+    font-weight: bold;
+    color: #fff;
+    font-size: 13px;
+    width: 8%;
+    height: 3vh;
+    border-radius: 5px;
+    background: rgb(40,40,60);
+    margin: 0 calc(1% - 1px);
+    cursor: pointer;
+    border: 1px solid rgb(40,40,60);
+    transition: 0.3s;
+}
+
+.commbut:hover {
+    background: rgb(255, 255, 255);
+    color: rgb(40,40,60);
+    border: 1px solid rgb(40,40,60);
+}
+
+.commbutr {
+    font-weight: bold;
+    color: #fff;
+    font-size: 13px;
+    width: 8%;
+    height: 3vh;
+    border-radius: 5px;
+    background: rgb(226, 88, 88);
+    margin: 0 1%;
+    margin-right: 3%;
+    cursor: pointer;
+    border: 1px solid rgb(226, 88, 88);
+    transition: 0.3s;
+}
+
+.commbutr:hover {
+    background: rgb(255, 255, 255);
+    color: rgb(226, 88, 88);
+    border: 1px solid rgb(226, 88, 88);
+}
+
+.data {
+    height: 40vh;
+}
+
+.logs {
+    font-size: 12px;
+    overflow: auto;
+    width: 40%;
+    height: 35vh;
+    margin: 0 5%;
+}
+
+.delokos{
+    width: 33.33333%;
+    margin: 0% 0;
+    height: 7vh;
+    border-radius: 5px; 
+}
+.nene{
+    height: 50%;
+    width: 100%;
+    color: #fff;
+    font-weight: bold;
+    font-size: 13px;
+    border-radius: 5px; 
+}
+
+.datos{
+    height: 50%;
+    background-color: white;
+    width: 100%;
+    font-weight: bold;
+    font-size: 13px;
+
+
+}
+
+.map {
+    width: 40%;
+    height: 35vh;
+    margin: 2.5% 5%;
+    border: 1px solid #adadad;
+    border-radius: 5px;
+    transition: 0.5s;
+    z-index:10;
+}
+
+.map:hover {
+    width: 48%;
+    height: 39vh;
+    margin: 0.5% 1%;
+}
+
+.motors {
+    height: 40vh;
+    width: 100%;
+}
+
+.motor {
+    width: 25vh;
+    height: 25vh;
+    background: rgb(40,40,60);
+    border-radius: 100%;
+    box-shadow: 0px 0px 20px 1px rgb(40,40,60);
+}
+
+.percentatge {
+    font-size: 60px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+.rpm {
+    margin-top: 10;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+}
+
+.angle {
+    font-size: 30px;
+    width: 5%;
+}
+
+.spacer {
+    width: calc(100% - 50vh - 10vw - 15vw);
+    height: 40vh;
+}
+
+.servo {
+    width: 6%;
+    text-align: center;
+}
+
+.rservo {
+    width: 3vw;
+    height: 3vw;
+    margin: 8 1.5vw;
+    border: 1px solid #5e5e5e;
+    border-radius: 100%;
+}
+
+.motorpow {
+    width: 1vw;
+    height: 100vh;
+    display: flex;
+    align-items: flex-end;
+}
+
+.motorpowbar {
+    width: 1vw;
+    height: 0vh;
+    background: rgb(63, 63, 63);
+    z-index: 2000;
+}
+
+.motorpowh {
+    margin-top: 2vh;
+    width: 100%;
+    height: 1vw;
+}
+
+.motorpowbarh {
+    width: 0%;
+    height: 1vw;
+    background: rgb(224, 95, 72);
+    z-index: 2000;
+}
+
+.brujula {
+    --size: calc((100% - 60vh - 20vw - 15vw)/2);
+    width: 10vw;
+    height: 10vw;
+    border-radius: 100%;
+    background: #adadad;
+    transition: 0.1s;
+    border: 1px solid #fff;
+}
+
+.palo {
+    width: 8px;
+    border-radius: 2px;
+    height: 7vw;
+    background: #fff;
+    transition: 0.1s;
+}
+
+.frontspeed {
+    width: 8px;
+    transition: 0.1s;
+    height: 0%;
+    margin-bottom: 0;
+    background: rgb(224, 95, 72);
+}
+
+.imgns {
+    max-height: 100%;
+    display: none;
+}
+.terminals {
+  --color: rgba(48, 48, 48, 0.99);
+  --background: #efefef;
 }
