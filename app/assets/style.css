@@ -688,7 +688,7 @@ body {
 }
 
 .map:hover {
-    width: 48%;
+    width: 43%;
     height: 39vh;
     margin: 0.5% 1%;
 }
@@ -804,4 +804,6 @@ body {
 .terminals {
   --color: rgba(48, 48, 48, 0.99);
   --background: #efefef;
+  --animation: terminal-bar;
+  --size:20px;
 }

@@ -90,7 +90,7 @@ async function submit_route() {
         m_r = true;
         document.getElementById("map_id").style.width = "20%";
         document.getElementById("route_des").style.width = "80%";
-        document.getElementById("route_des").style.marginLeft = "calc(20% - 50px)";
+        document.getElementById("route_des").style.marginLeft = "20%";
         document.getElementById("design_r").style.display = "none"
         document.getElementById("finit_r").style.display = "block"
         setTimeout(function () { mymap.setView([l_p[0][0], l_p[0][1] + 0.13], 13); }, 100);
@@ -461,7 +461,10 @@ $('#patata').terminal({
     },
     reboot: function () {
         this.echo("Rebooting...");
-    }
+    },
+    echo: function (what) {
+        this.echo(what);
+    },
 }, {
     greetings: '[[b;#000;]OrangePi SSH]'
 });
