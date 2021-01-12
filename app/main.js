@@ -85,7 +85,7 @@ function remove_mark(id) {
     l_p.splice(id, 1);
     refresh_marks();
 }
-async function submit_route() {
+function submit_route() {
     if (l_p.length > 1) {
         m_r = true;
         document.getElementById("map_id").style.width = "20%";
@@ -187,9 +187,6 @@ function range_video() {
     document.getElementById("range_value").innerHTML = document.getElementById("range_degree").value + "º";
 }
 
-
-
-
 //Tabs things
 function open_tab(id) {
     menu_close();
@@ -206,9 +203,6 @@ function open_tab(id) {
         }
     }
 }
-
-
-
 
 //Menu things
 var menu = 0;
@@ -227,13 +221,9 @@ function menu_close() {
     menu = 0;
 }
 
-
-
-
 //GeoMap
 var latitud = 41.716379;
 var longitude = 1.8220914;
-// Importem l'icona que farem servir per senyalitzar l'avió
 var ico_l2 = L.icon({
     iconUrl: 'assets/map-plane.png',
     iconSize: [30, 30],
@@ -244,7 +234,6 @@ $.get("http://ip-api.com/json", function (data, status) {
     latitud = data["lat"];
     longitude = data["lon"];
 });
-//Map
 var ico_l = L.icon({
     iconUrl: 'assets/map-marker.png',
     iconSize: [30, 30],
@@ -266,11 +255,9 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
 mymap.on('click', onMapClick);
 
 
-// Creem una marker fent servir l'icona que hem importat anteriorment i l'apliquem almapa
 var marker = L.marker([latitud, longitude], {
     icon: ico_l2
 }).addTo(mymap);
-// Creem una marker fent servir l'icona que hem importat anteriorment i l'apliquem almapa
 var marker = L.marker([latitud, longitude], {
     icon: ico_l2
 }).addTo(mymap2);
@@ -328,7 +315,6 @@ setTimeout(function () {
     });
 }, 1000);
 
-//La següent funció s'encarrega de que quan es clica intro en el input envia l'ordre a el backend
 var input = document.getElementById("input1");
 input.addEventListener('keyup', function (e) {
     if (e.key === 'Enter' || e.keyCode === 13) {
@@ -346,7 +332,6 @@ function commbutf(value) {
     mode = value;
     socket.emit('commbuts', value);
 }
-// Creem les variables globals que necessitarem
 var caliblx = 0;
 var calibly = 0;
 var calibrx = 0;
@@ -356,14 +341,11 @@ var ly = 0;
 var rx = 0;
 var ry = 0;
 
-//Escoltem per quan es detecti el gamepad o mando
 window.addEventListener('gamepadconnected', (event) => {
     console.log("Gamepads: " + navigator.getGamepads());
     const update = () => {
-        // Agafem tota la informació actual del mando
         var gp = navigator.getGamepads()[0];
 
-        // Repartim la informació en variables per a que sigui més comode de treballar
         var b_x = gp.buttons[0];
         var b_r = gp.buttons[1];
         var b_c = gp.buttons[2];
@@ -386,7 +368,6 @@ window.addEventListener('gamepadconnected', (event) => {
         var aRY = gp.axes[3] - calibry;
         rx += +aRX;
         if (r1.pressed) {
-            // Sumem el valor a la global sempre assegurant que no sobrepassa els limits
             ly += +aLY * -0.5;
             if (ly < 0) {
                 ly = 0
@@ -397,11 +378,9 @@ window.addEventListener('gamepadconnected', (event) => {
             aLX = 0
         }
         if (up.pressed) {
-            // Fem que no tingiu cap valor
             ly = 0;
         }
         if (l1.pressed) {
-            // Sumem el valor a la global sempre assegurant que no sobrepassa els limits
             ly += +aLY * -5;
             if (ly < 0) {
                 ly = 0
@@ -412,10 +391,8 @@ window.addEventListener('gamepadconnected', (event) => {
             aLX = 0
         }
         if (down.pressed) {
-            // Fem que no tingiu cap valor
             aLX = 0;
         }
-        //Mostrem els nous valors en pantalla
         document.getElementById("rightmotor").style.height = ly + "%";
         document.getElementById("leftmotor").style.height = ly + "%";
 
@@ -436,8 +413,6 @@ window.addEventListener('gamepadconnected', (event) => {
         console.log(ly);
         socket.emit("data", client)
 
-        //Tornem a l'inici
-
         requestAnimationFrame(update);
     };
     update();
@@ -446,8 +421,6 @@ window.addEventListener('gamepadconnected', (event) => {
 //Terminalvar 
 $ = require('jquery');
 require('jquery.terminal')($);
-
-
 $('#patata').terminal({
     ls: function () {
         this.echo("[[b;#2864b3;]Assets  logs]  [[b;#1c8f4c;]main]  main.cpp  [[b;#2864b3;]Modules]  plane.code-workspace  README.md");
