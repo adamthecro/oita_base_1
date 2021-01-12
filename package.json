@@ -14,8 +14,8 @@
     "base",
     "base birdroni"
   ],
-  "author": "Adam El Messaoudi aarab",
-  "license": "CC0-1.0",
+  "author": "Adam El Messaoudi Aarab",
+  "license": "MIT",
   "devDependencies": {
     "electron": "^9.3.1",
     "electron-rebuild": "^1.11.0"
